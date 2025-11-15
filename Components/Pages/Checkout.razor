@@ -1,0 +1,45 @@
+@page "/checkout"
+@using System.Net.Http.Json
+@inject HttpClient HttpClient
+@inject NavigationManager NavigationManager
+@inject OrderState OrderState
+
+<h2>Checkout</h2>
+
+@if (!OrderState.Order.Pizzas.Any())
+{
+    <p>No items in order. <a href="/">Get Pizza</a></p>
+}
+else
+{
+    <div>
+        @foreach (var p in OrderState.Order.Pizzas)
+        {
+            <div class="checkout-item">
+                <strong>@p.Special?.Name</strong> (@p.Size) — £@p.GetFormattedTotalPrice()
+            </div>
+        }
+        <p><strong>Total: £@OrderState.Order.GetFormattedTotalPrice()</strong></p>
+
+        <button class="btn btn-success" @onclick="PlaceOrder" disabled="@isSubmitting">
+            Place order
+        </button>
+    </div>
+}
+
+@code {
+    bool isSubmitting;
+
+    async Task PlaceOrder()
+    {
+        isSubmitting = true;
+
+        var response = await HttpClient.PostAsJsonAsync("orders", OrderState.Order);
+        response.EnsureSuccessStatusCode();
+
+        var newOrderId = await response.Content.ReadFromJsonAsync<int>();
+        OrderState.ResetOrder();
+
+        NavigationManager.NavigateTo($"/myorders/{newOrderId}");
+    }
+}

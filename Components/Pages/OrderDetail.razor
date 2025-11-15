@@ -1,0 +1,48 @@
+@page "/myorders/{orderId:int}"
+@inject HttpClient HttpClient
+@inject NavigationManager NavigationManager
+
+<h2>Order Detail</h2>
+
+@if (invalid)
+{
+    <p>Order not found.</p>
+}
+else if (order == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <div>
+        <div>Placed: @order.Order.CreatedTime.ToString("g")</div>
+        <div>Status: <strong>@order.StatusText</strong></div>
+        <h4>Items</h4>
+        @foreach(var p in order.Order.Pizzas)
+        {
+            <div>@p.Special?.Name — £@p.GetFormattedTotalPrice()</div>
+        }
+    </div>
+}
+
+@code {
+    [Parameter] public int OrderId { get; set; }
+    OrderWithStatus? order; // nullable
+    bool invalid;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        try
+        {
+            order = await HttpClient.GetFromJsonAsync<OrderWithStatus>($"{NavigationManager.BaseUri}orders/{OrderId}");
+            if (order == null)
+            {
+                invalid = true;
+            }
+        }
+        catch
+        {
+            invalid = true;
+        }
+    }
+}

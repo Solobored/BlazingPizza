@@ -1,0 +1,39 @@
+﻿@page "/"
+
+<h2>Welcome to Blazing Pizza</h2>
+
+<p>Choose from our specials and order a pizza. Or try the demo features (orders, tracking).</p>
+
+<div class="cards">
+    @foreach(var s in specials)
+    {
+        <div class="card">
+            <h4>@s.Name</h4>
+            <p>@s.Description</p>
+            <div class="price">£@s.Price</div>
+            <button class="btn" @onclick="() => AddToOrder(s)">Add</button>
+        </div>
+    }
+</div>
+
+@code {
+    List<PizzaSpecial> specials = new();
+
+    // mark injected properties as initialized to silence CS8618
+    [Inject] PizzaStoreContext Db { get; set; } = null!;
+    [Inject] OrderState OrderState { get; set; } = null!;
+
+    protected override void OnInitialized()
+    {
+        // ensure Specials property exists on Db
+        specials = Db.Specials.ToList();
+    }
+
+    void AddToOrder(PizzaSpecial special)
+    {
+        // set integer Size (pages expect an int) — change values as you prefer
+        var pizza = new Pizza { SpecialId = special.Id, Special = special, Size = "Medium" };
+
+        OrderState.Order.Pizzas.Add(pizza);
+    }
+}
