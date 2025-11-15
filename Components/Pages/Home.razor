@@ -1,17 +1,24 @@
 ﻿@page "/"
+@using BlazingPizza.Models
+@inject PizzaStoreContext Db
+@inject OrderState OrderState
 
-<h2>Welcome to Blazing Pizza</h2>
+<h1 class="page-title">Welcome to Blazing Pizza</h1>
+<p class="lead">Choose from our specials and order a pizza. Hot & fresh — ready in minutes.</p>
 
-<p>Choose from our specials and order a pizza. Or try the demo features (orders, tracking).</p>
-
-<div class="cards">
-    @foreach(var s in specials)
+<div class="pizza-grid">
+    @foreach (var s in specials)
     {
-        <div class="card">
-            <h4>@s.Name</h4>
-            <p>@s.Description</p>
-            <div class="price">£@s.Price</div>
-            <button class="btn" @onclick="() => AddToOrder(s)">Add</button>
+        <div class="pizza-card card">
+            <img src="@GetImageFor(s)" class="pizza-img" alt="@s.Name" />
+            <div class="card-body">
+                <h3 class="pizza-name">@s.Name</h3>
+                <p class="pizza-desc">@s.Description</p>
+                <div class="card-footer">
+                    <div class="price">£@s.Price.ToString("0.00")</div>
+                    <button class="btn btn-primary" @onclick="() => AddToOrder(s)">Add</button>
+                </div>
+            </div>
         </div>
     }
 </div>
@@ -19,21 +26,24 @@
 @code {
     List<PizzaSpecial> specials = new();
 
-    // mark injected properties as initialized to silence CS8618
-    [Inject] PizzaStoreContext Db { get; set; } = null!;
-    [Inject] OrderState OrderState { get; set; } = null!;
-
     protected override void OnInitialized()
     {
-        // ensure Specials property exists on Db
         specials = Db.Specials.ToList();
     }
 
     void AddToOrder(PizzaSpecial special)
     {
-        // set integer Size (pages expect an int) — change values as you prefer
         var pizza = new Pizza { SpecialId = special.Id, Special = special, Size = "Medium" };
-
         OrderState.Order.Pizzas.Add(pizza);
+    }
+
+    string GetImageFor(PizzaSpecial s)
+    {
+        // Use local images if present in wwwroot/images; fallback to a placeholder data URI
+        var safeName = (s.Name ?? "pizza").ToLower().Replace(" ", "-");
+        var url = $"images/{safeName}.jpg";
+        return System.IO.File.Exists(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", url))
+            ? url
+            : "https://via.placeholder.com/380x220.png?text=Pizza";
     }
 }

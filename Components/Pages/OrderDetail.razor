@@ -1,48 +1,52 @@
-@page "/myorders/{orderId:int}"
-@inject HttpClient HttpClient
-@inject NavigationManager NavigationManager
+@page "/orderdetail/{orderId:int}"
+@using BlazingPizza.Data
+@inject HttpClient Http
+@inject NavigationManager NavManager
 
-<h2>Order Detail</h2>
+<h2>Order details</h2>
 
-@if (invalid)
-{
-    <p>Order not found.</p>
-}
-else if (order == null)
+@if (order == null)
 {
     <p>Loading...</p>
 }
 else
 {
-    <div>
-        <div>Placed: @order.Order.CreatedTime.ToString("g")</div>
-        <div>Status: <strong>@order.StatusText</strong></div>
-        <h4>Items</h4>
-        @foreach(var p in order.Order.Pizzas)
-        {
-            <div>@p.Special?.Name — £@p.GetFormattedTotalPrice()</div>
-        }
+    <div class="card order-detail">
+        <div class="order-header">
+            <strong>Order #@order.Order.OrderId</strong>
+            <div class="muted">@order.Order.CreatedTime.ToLocalTime().ToString("g")</div>
+        </div>
+
+        <div class="order-items">
+            @foreach (var p in order.Order.Pizzas)
+            {
+                <div class="order-item">
+                    <div>
+                        @p.Special?.Name 
+                        <small class="muted">(@p.Size)</small>
+                    </div>
+                    <div>£@p.GetFormattedTotalPrice()</div>
+                </div>
+            }
+        </div>
+
+        <div class="order-total">
+            <strong>Total: £@order.Order.GetFormattedTotalPrice()</strong>
+        </div>
+
+        <div style="margin-top: 12px;">
+            <a class="btn btn-primary" href="/">Back to shop</a>
+        </div>
     </div>
 }
 
 @code {
-    [Parameter] public int OrderId { get; set; }
-    OrderWithStatus? order; // nullable
-    bool invalid;
+    [Parameter] public int orderId { get; set; }
 
-    protected override async Task OnParametersSetAsync()
+    OrderWithStatus? order;
+
+    protected override async Task OnInitializedAsync()
     {
-        try
-        {
-            order = await HttpClient.GetFromJsonAsync<OrderWithStatus>($"{NavigationManager.BaseUri}orders/{OrderId}");
-            if (order == null)
-            {
-                invalid = true;
-            }
-        }
-        catch
-        {
-            invalid = true;
-        }
+        order = await Http.GetFromJsonAsync<OrderWithStatus>($"orders/{orderId}");
     }
 }

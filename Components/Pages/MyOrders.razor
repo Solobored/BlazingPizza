@@ -2,7 +2,7 @@
 @using BlazingPizza.Data
 @inject HttpClient Http
 
-<h3>My Orders</h3>
+<h2>My Orders</h2>
 
 @if (orders == null)
 {
@@ -10,20 +10,38 @@
 }
 else if (!orders.Any())
 {
-    <p>You have no orders yet.</p>
+    <div class="card">
+        <p>You have no orders yet. Try ordering a pizza!</p>
+        <a class="btn btn-primary" href="/">Order now</a>
+    </div>
 }
 else
 {
-    <ul class="list-group">
+    <div class="orders-list">
         @foreach (var order in orders)
         {
-            <li class="list-group-item">
-                <a href="/orderdetails/@order.OrderId">
-                    Order #@order.OrderId - @order.CreatedTime.ToLocalTime()
-                </a>
-            </li>
+            <div class="order-card card">
+                <div class="order-row">
+                    <div class="order-meta">
+                        <strong>Order #@order.OrderId</strong>
+                        <div class="muted">@order.CreatedTime.ToLocalTime().ToString("g")</div>
+                    </div>
+                    <div>
+                        <a class="btn btn-ghost" href="/orderdetail/@order.OrderId">View</a>
+                    </div>
+                </div>
+                <div class="order-items">
+                    @foreach (var p in order.Order.Pizzas)
+                    {
+                        <div class="order-item">
+                            <span>@p.Special?.Name</span>
+                            <span>£@p.GetFormattedTotalPrice()</span>
+                        </div>
+                    }
+                </div>
+            </div>
         }
-    </ul>
+    </div>
 }
 
 @code {

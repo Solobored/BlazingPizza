@@ -1,15 +1,38 @@
-﻿@inherits LayoutComponentBase
+﻿@using BlazingPizza.Data
+@inject OrderState OrderState
+@inherits LayoutComponentBase
 
-<div class="page">
+<div id="app">
+    <header class="top-bar">
+        <a class="logo" href="/">
+            <img src="https://cdn-icons-png.flaticon.com/512/1404/1404945.png" alt="Blazing Pizza" />
+            <div style="margin-left:12px;">
+                <div class="brand">Blazing Pizza</div>
+                <div class="tag">Hot & Fresh</div>
+            </div>
+        </a>
 
-    <div class="topnav">
-        <span class="brand">BlazingPizza</span>
+        <nav class="top-nav" role="navigation" aria-label="Main navigation">
+            <a class="nav-tab" href="">Home</a>
+            <a class="nav-tab" href="checkout">Checkout</a>
+            <a class="nav-tab" href="myorders">My Orders</a>
+            <a class="nav-tab" href="about">About</a>
+            <a class="nav-tab" href="weather">Weather</a>
+        </nav>
 
-        <NavMenu />
-    </div>
+        <a class="cart-icon" href="checkout" title="View cart">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="white" aria-hidden="true">
+                <path d="M7 4h-2l-1 2h2l1.5 6H19l1-4H9.5"></path>
+            </svg>
+            <span class="cart-count">@OrderState.Order.Pizzas.Count</span>
+        </a>
+    </header>
 
     <main class="content">
         @Body
     </main>
 
+    <footer>
+        © @DateTime.Now.Year — Blazing Pizza &mdash; Built with Blazor
+    </footer>
 </div>

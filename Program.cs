@@ -1,36 +1,30 @@
 using Microsoft.EntityFrameworkCore;
 using BlazingPizza.Data;
+using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Razor + Blazor Server
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 
-// EF Core (SQLite)
+// Configure EF Core (SQLite)
 builder.Services.AddDbContext<PizzaStoreContext>(options =>
-    options.UseSqlite(
-        builder.Configuration.GetConnectionString("BlazingPizzaContext")
-        ?? "Data Source=BlazingPizza.db"
-    )
-);
+    options.UseSqlite(builder.Configuration.GetConnectionString("BlazingPizzaContext")
+                      ?? "Data Source=BlazingPizza.db"));
 
 // App state
 builder.Services.AddScoped<OrderState>();
 
-// *** THE IMPORTANT FIX ***
-// This MUST be placed BEFORE builder.Build()
-builder.Services.AddScoped(sp => new HttpClient
-{
-    BaseAddress = new Uri("http://localhost:5289/") // adjust if needed
-});
+// Register HttpClient for server-side components (base address must match app)
+var baseAddress = builder.Configuration["AppBaseUrl"] ?? "http://localhost:5289/";
+builder.Services.AddScoped(sp => new System.Net.Http.HttpClient { BaseAddress = new Uri(baseAddress) });
 
-// API controllers
+// Add controllers (API)
 builder.Services.AddControllers();
 
 var app = builder.Build();
 
-// DB + seed
+// Ensure DB + seed
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
@@ -39,7 +33,7 @@ using (var scope = app.Services.CreateScope())
     SeedData.Initialize(services);
 }
 
-// Pipeline
+// pipeline
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");

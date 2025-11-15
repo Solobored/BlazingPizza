@@ -4,42 +4,86 @@
 @inject NavigationManager NavigationManager
 @inject OrderState OrderState
 
-<h2>Checkout</h2>
+<h2>Your Cart</h2>
 
 @if (!OrderState.Order.Pizzas.Any())
 {
-    <p>No items in order. <a href="/">Get Pizza</a></p>
+    <div class="empty-cart card">
+        <p>Your cart is empty — add a pizza from the home page.</p>
+        <a class="btn btn-ghost" href="/">Continue shopping</a>
+    </div>
 }
 else
 {
-    <div>
-        @foreach (var p in OrderState.Order.Pizzas)
-        {
-            <div class="checkout-item">
-                <strong>@p.Special?.Name</strong> (@p.Size) — £@p.GetFormattedTotalPrice()
-            </div>
-        }
-        <p><strong>Total: £@OrderState.Order.GetFormattedTotalPrice()</strong></p>
+    <div class="cart-layout">
+        <div class="cart-items">
+            @foreach (var (p, idx) in OrderState.Order.Pizzas.Select((v, i) => (v, i)))
+            {
+                <div class="cart-row card">
+                    <div class="cart-thumb">
+                        <pizza-component pizza="p"></pizza-component>
+                    </div>
+                    <div class="cart-info">
+                        <div class="cart-title">@p.Special?.Name</div>
+                        <div class="cart-meta">Size: @p.Size</div>
+                        <div class="cart-qty">
+                            <button class="btn btn-ghost small" @onclick="() => Decrease(idx)">-</button>
+                            <span class="qty">1</span>
+                            <button class="btn btn-ghost small" @onclick="() => Increase(idx)">+</button>
+                            <button class="btn btn-ghost small danger" @onclick="() => Remove(idx)">Remove</button>
+                        </div>
+                    </div>
+                    <div class="cart-price">£@p.GetFormattedTotalPrice()</div>
+                </div>
+            }
+        </div>
 
-        <button class="btn btn-success" @onclick="PlaceOrder" disabled="@isSubmitting">
-            Place order
-        </button>
+        <aside class="cart-summary card">
+            <h3>Order Summary</h3>
+            <div class="summary-row">
+                <span>Items</span>
+                <span>@OrderState.Order.Pizzas.Count</span>
+            </div>
+            <div class="summary-row total">
+                <span>Total</span>
+                <span>£@OrderState.Order.GetFormattedTotalPrice()</span>
+            </div>
+
+            <button class="btn btn-primary wide" @onclick="PlaceOrder" disabled="@isSubmitting">
+                @if (isSubmitting) { <span>Placing order...</span> } else { <span>Place order</span> }
+            </button>
+            <a class="btn btn-ghost wide" href="/">Continue shopping</a>
+        </aside>
     </div>
 }
 
 @code {
     bool isSubmitting;
 
+    string GetImageFor(Pizza? s)
+    {
+        if (s?.Special == null) return "https://via.placeholder.com/120x80.png?text=Pizza";
+        var name = s.Special.Name.ToLower().Replace(" ", "-");
+        return System.IO.File.Exists(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", $"{name}.jpg"))
+            ? $"images/{name}.jpg"
+            : "https://via.placeholder.com/120x80.png?text=Pizza";
+    }
+
+    void Remove(int idx)
+    {
+        if (idx >= 0 && idx < OrderState.Order.Pizzas.Count)
+            OrderState.Order.Pizzas.RemoveAt(idx);
+    }
+    void Increase(int idx) { /* simple demo: keep single quantity per pizza, could extend */ }
+    void Decrease(int idx) { /* simple demo: keep single quantity per pizza, could extend */ }
+
     async Task PlaceOrder()
     {
         isSubmitting = true;
-
         var response = await HttpClient.PostAsJsonAsync("orders", OrderState.Order);
         response.EnsureSuccessStatusCode();
-
         var newOrderId = await response.Content.ReadFromJsonAsync<int>();
         OrderState.ResetOrder();
-
-        NavigationManager.NavigateTo($"/myorders/{newOrderId}");
+        NavigationManager.NavigateTo($"/orderdetail/{newOrderId}");
     }
 }

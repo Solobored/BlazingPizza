@@ -1,14 +1,20 @@
-﻿<nav class="side-nav">
-    <ul>
-        <li><NavLink href="">Home</NavLink></li>
-        <li><NavLink href="checkout">Checkout</NavLink></li>
-        <li><NavLink href="myorders">My Orders</NavLink></li>
-        <li><NavLink href="about">About</NavLink></li>
+﻿@* Minimal nav preserved for assignment structure — top nav is in MainLayout *@
+<nav class="nav-scrollable" aria-label="Sidebar navigation">
+    <ul class="nav flex-column">
+        <li class="nav-item">
+            <NavLink class="nav-link" href="">Home</NavLink>
+        </li>
+        <li class="nav-item">
+            <NavLink class="nav-link" href="checkout">Checkout</NavLink>
+        </li>
+        <li class="nav-item">
+            <NavLink class="nav-link" href="myorders">My Orders</NavLink>
+        </li>
+        <li class="nav-item">
+            <NavLink class="nav-link" href="about">About</NavLink>
+        </li>
+        <li class="nav-item">
+            <NavLink class="nav-link" href="weather">Weather</NavLink>
+        </li>
     </ul>
 </nav>
-
-<style>
-.side-nav { padding:8px; background:#fff; border-radius:6px; }
-.side-nav a { display:block; padding:6px 10px; color:#333; text-decoration:none; }
-.side-nav a.active { background: #ddd; }
-</style>

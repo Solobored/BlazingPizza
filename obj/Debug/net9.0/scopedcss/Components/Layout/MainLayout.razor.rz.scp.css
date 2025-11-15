@@ -1,165 +1,127 @@
-/* Main layout / top nav */
-:root[b-ykrervz5k0] {
-  --accent: #b22222; /* theater red */
+:root[b-ykrervz5k0]{
+  --accent: #b93b2b;
   --accent-dark: #7a1515;
-  --bg: #0b0b0b;
-  --panel: #111111;
-  --muted: #bdbdbd;
-  --card-bg: #161616;
+  --bg: #fff6f1;
+  --card: #fff;
+  --muted: #666;
+  --shadow: rgba(0,0,0,0.12);
 }
 
+/* page baseline */
 #app[b-ykrervz5k0] {
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  background: linear-gradient(180deg, #050505 0%, #0b0b0b 100%);
-  color: #efefef;
+  display:flex;
+  flex-direction:column;
+  background: var(--bg);
+  color: #111;
   font-family: "Segoe UI", Roboto, system-ui, -apple-system, "Helvetica Neue", Arial;
 }
 
-/* Top bar (logo + nav) */
-header.top-bar[b-ykrervz5k0] {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  padding: 10px 20px;
-  background: linear-gradient(90deg, rgba(178,34,34,0.95) 0%, rgba(118,12,12,0.95) 100%);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.6);
-  z-index: 50;
-}
-
-header .logo[b-ykrervz5k0] {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  color: #fff;
-}
-
-header .logo img[b-ykrervz5k0] {
-  height: 44px;
-  width: auto;
-  border-radius: 6px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.5);
-}
-
-/* Navigation tabs across the top */
-.nav-tab[b-ykrervz5k0] {
-  display: inline-flex;
-  gap: 10px;
-  align-items: center;
-  padding: 8px 14px;
-  border-radius: 8px;
-  text-decoration: none;
-  color: #fff;
-  font-weight: 600;
-  opacity: 0.95;
-  transition: transform .08s ease, background .12s ease, opacity .12s ease;
-}
-
-.nav-tab img[b-ykrervz5k0] {
-  height: 26px;
-  width: 26px;
-  opacity: 0.98;
-}
-
-.nav-tab:hover[b-ykrervz5k0] {
-  transform: translateY(-2px);
-  opacity: 1;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.45);
-}
-
-/* active navlink look */
-.nav-tab.active[b-ykrervz5k0],
-.nav-tab[aria-current="true"][b-ykrervz5k0] {
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.06);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.5), inset 0 -4px 12px rgba(0,0,0,0.25);
-}
-
-/* Content area */
-.content[b-ykrervz5k0] {
-  flex: 1 1 auto;
-  padding: 28px 36px;
-}
-
-/* Footer */
-footer[b-ykrervz5k0] {
-  padding: 12px 24px;
-  text-align: center;
-  color: var(--muted);
-  font-size: 0.9rem;
-  border-top: 1px solid rgba(255,255,255,0.03);
-  background: linear-gradient(180deg, rgba(0,0,0,0.05), rgba(0,0,0,0.07));
-}
-
-/* Cards for movies/pizzas (used in Movies/Home pages) */
-.card[b-ykrervz5k0] {
-  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-  border-radius: 10px;
-  padding: 14px;
-  box-shadow: 0 8px 22px rgba(2,2,2,0.6);
-  border: 1px solid rgba(255,255,255,0.03);
-  color: #f5f5f5;
-}
-
-/* Grid for posters/cards */
-.card-grid[b-ykrervz5k0] {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 18px;
-}
-
-/* Card title and info */
-.card .title[b-ykrervz5k0] {
-  font-size: 1.05rem;
-  font-weight: 700;
-  margin-bottom: 8px;
-  color: #fff;
-}
-
-/* Price badge */
-.price-badge[b-ykrervz5k0] {
-  display: inline-block;
-  padding: 6px 10px;
-  border-radius: 999px;
-  background: var(--accent-dark);
+/* TOP BAR */
+header.top-bar[b-ykrervz5k0]{
+  display:flex;
+  align-items:center;
+  gap:18px;
+  padding:12px 20px;
+  background: linear-gradient(90deg, rgba(185,59,43,0.98), rgba(135,32,21,0.98));
   color: white;
-  font-weight: 700;
-  font-size: 0.9rem;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.15);
 }
 
-/* Make text readable on dark card */
-.card p[b-ykrervz5k0], .card small[b-ykrervz5k0] {
-  color: #d9d9d9;
+header .logo[b-ykrervz5k0]{
+  display:flex;
+  align-items:center;
+  text-decoration:none;
+  color:white;
 }
 
-/* Buttons */
-.btn[b-ykrervz5k0] {
-  padding: 8px 12px;
-  border-radius: 8px;
-  font-weight: 700;
-  border: none;
-  cursor: pointer;
+header .logo img[b-ykrervz5k0]{
+  width:56px;
+  height:56px;
+  border-radius:8px;
+  object-fit:cover;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
 }
-.btn-primary[b-ykrervz5k0] {
-  background: var(--accent);
-  color: white;
-  box-shadow: 0 8px 24px rgba(178,34,34,0.18);
+
+.brand[b-ykrervz5k0] {
+  font-weight:800;
+  font-size:1.15rem;
+  line-height:1;
 }
-.btn-ghost[b-ykrervz5k0] {
+.tag[b-ykrervz5k0] {
+  font-size:0.78rem;
+  opacity:0.9;
+  letter-spacing:0.2px;
+}
+
+/* top navigation tabs */
+.top-nav[b-ykrervz5k0] {
+  display:flex;
+  gap:8px;
+  margin-left:20px;
+  align-items:center;
+}
+.nav-tab[b-ykrervz5k0]{
+  padding:8px 12px;
+  border-radius:8px;
+  color:rgba(255,255,255,0.95);
+  text-decoration:none;
+  font-weight:700;
   background: transparent;
-  border: 1px solid rgba(255,255,255,0.04);
-  color: #fff;
+  transition: all .12s ease;
+}
+.nav-tab:hover[b-ykrervz5k0] {
+  background: rgba(255,255,255,0.06);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
 }
 
-/* Responsive tweaks */
-@media (max-width: 720px) {
-  header.top-bar[b-ykrervz5k0] {
-    gap: 8px;
-    padding: 8px 12px;
-  }
-  .content[b-ykrervz5k0] { padding: 16px; }
-  .card-grid[b-ykrervz5k0] {
-    grid-template-columns: repeat(2, 1fr);
-  }
+/* cart icon */
+.cart-icon[b-ykrervz5k0]{
+  margin-left:auto;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  text-decoration:none;
+  color:white;
+  position:relative;
+  padding:6px 8px;
+  border-radius:8px;
+  transition: background .12s ease;
+}
+.cart-icon:hover[b-ykrervz5k0]{ background: rgba(255,255,255,0.04); }
+
+.cart-count[b-ykrervz5k0]{
+  font-weight:800;
+  background: var(--accent-dark);
+  color:white;
+  padding:4px 8px;
+  border-radius:999px;
+  font-size:0.8rem;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.12);
+}
+
+/* main content */
+.content[b-ykrervz5k0]{
+  flex:1 1 auto;
+  padding:28px 36px;
+  max-width:1200px;
+  margin:0 auto;
+}
+
+/* footer */
+footer[b-ykrervz5k0]{
+  padding:14px 20px;
+  text-align:center;
+  color:var(--muted);
+  font-size:0.9rem;
+  border-top:1px solid rgba(0,0,0,0.03);
+  background: linear-gradient(180deg, rgba(0,0,0,0.02), rgba(0,0,0,0.03));
+}
+
+/* small screens */
+@media (max-width:768px){
+  .top-nav[b-ykrervz5k0]{ display:none; }
+  .content[b-ykrervz5k0]{ padding:16px; }
+  header .brand[b-ykrervz5k0]{ font-size:1rem; }
 }

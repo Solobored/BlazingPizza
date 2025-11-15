@@ -128,6 +128,7 @@ C:\Users\josva\OneDrive\Documentos\BYU Software Development\.Net Software Develo
 C:\Users\josva\OneDrive\Documentos\BYU Software Development\.Net Software Development\BlazingPizza\obj\Debug\net9.0\BlazingPizza.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\josva\OneDrive\Documentos\BYU Software Development\.Net Software Development\BlazingPizza\obj\Debug\net9.0\BlazingPizza.RazorAssemblyInfo.cache
 C:\Users\josva\OneDrive\Documentos\BYU Software Development\.Net Software Development\BlazingPizza\obj\Debug\net9.0\BlazingPizza.RazorAssemblyInfo.cs
+C:\Users\josva\OneDrive\Documentos\BYU Software Development\.Net Software Development\BlazingPizza\obj\Debug\net9.0\BlazingPizza.sourcelink.json
 C:\Users\josva\OneDrive\Documentos\BYU Software Development\.Net Software Development\BlazingPizza\obj\Debug\net9.0\rjimswa.dswa.cache.json
 C:\Users\josva\OneDrive\Documentos\BYU Software Development\.Net Software Development\BlazingPizza\obj\Debug\net9.0\rjsmrazor.dswa.cache.json
 C:\Users\josva\OneDrive\Documentos\BYU Software Development\.Net Software Development\BlazingPizza\obj\Debug\net9.0\rjsmcshtml.dswa.cache.json
@@ -135,7 +136,7 @@ C:\Users\josva\OneDrive\Documentos\BYU Software Development\.Net Software Develo
 C:\Users\josva\OneDrive\Documentos\BYU Software Development\.Net Software Development\BlazingPizza\obj\Debug\net9.0\scopedcss\Components\Layout\NavMenu.razor.rz.scp.css
 C:\Users\josva\OneDrive\Documentos\BYU Software Development\.Net Software Development\BlazingPizza\obj\Debug\net9.0\scopedcss\bundle\BlazingPizza.styles.css
 C:\Users\josva\OneDrive\Documentos\BYU Software Development\.Net Software Development\BlazingPizza\obj\Debug\net9.0\scopedcss\projectbundle\BlazingPizza.bundle.scp.css
-C:\Users\josva\OneDrive\Documentos\BYU Software Development\.Net Software Development\BlazingPizza\obj\Debug\net9.0\compressed\7zcbz373fd-pqw6bnhtxf.gz
+C:\Users\josva\OneDrive\Documentos\BYU Software Development\.Net Software Development\BlazingPizza\obj\Debug\net9.0\compressed\7zcbz373fd-qja14xww0t.gz
 C:\Users\josva\OneDrive\Documentos\BYU Software Development\.Net Software Development\BlazingPizza\obj\Debug\net9.0\compressed\gi4kjvixq2-bqjiyaj88i.gz
 C:\Users\josva\OneDrive\Documentos\BYU Software Development\.Net Software Development\BlazingPizza\obj\Debug\net9.0\compressed\mfe6fh183k-c2jlpeoesf.gz
 C:\Users\josva\OneDrive\Documentos\BYU Software Development\.Net Software Development\BlazingPizza\obj\Debug\net9.0\compressed\9ek8m2d701-erw9l3u2r3.gz
@@ -180,8 +181,8 @@ C:\Users\josva\OneDrive\Documentos\BYU Software Development\.Net Software Develo
 C:\Users\josva\OneDrive\Documentos\BYU Software Development\.Net Software Development\BlazingPizza\obj\Debug\net9.0\compressed\xx95r9qq8w-h1s4sie4z3.gz
 C:\Users\josva\OneDrive\Documentos\BYU Software Development\.Net Software Development\BlazingPizza\obj\Debug\net9.0\compressed\ewknvbsam8-63fj8s7r0e.gz
 C:\Users\josva\OneDrive\Documentos\BYU Software Development\.Net Software Development\BlazingPizza\obj\Debug\net9.0\compressed\9fmvybgnbo-0j3bgjxly4.gz
-C:\Users\josva\OneDrive\Documentos\BYU Software Development\.Net Software Development\BlazingPizza\obj\Debug\net9.0\compressed\g691q6cbp4-lqx6frfi1y.gz
-C:\Users\josva\OneDrive\Documentos\BYU Software Development\.Net Software Development\BlazingPizza\obj\Debug\net9.0\compressed\scqucjv7z4-lqx6frfi1y.gz
+C:\Users\josva\OneDrive\Documentos\BYU Software Development\.Net Software Development\BlazingPizza\obj\Debug\net9.0\compressed\g691q6cbp4-w7k5f8kfp8.gz
+C:\Users\josva\OneDrive\Documentos\BYU Software Development\.Net Software Development\BlazingPizza\obj\Debug\net9.0\compressed\scqucjv7z4-w7k5f8kfp8.gz
 C:\Users\josva\OneDrive\Documentos\BYU Software Development\.Net Software Development\BlazingPizza\obj\Debug\net9.0\staticwebassets.build.json
 C:\Users\josva\OneDrive\Documentos\BYU Software Development\.Net Software Development\BlazingPizza\obj\Debug\net9.0\staticwebassets.build.json.cache
 C:\Users\josva\OneDrive\Documentos\BYU Software Development\.Net Software Development\BlazingPizza\obj\Debug\net9.0\staticwebassets.development.json
